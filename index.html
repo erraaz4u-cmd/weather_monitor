@@ -170,20 +170,22 @@
 		var host="broker.emqx.io";
         var user="emqx";
         var pass="public";
-		var port=8083
-
-        var x=Math.floor(Math.random() * 10000); 
-		var cname="orderform-"+x;
+		var port = 8084;
+		var useSSL = true;
+		
+        const cname = "WeatherDashboard-" + Date.now();
 
 		client = new Paho.MQTT.Client(host,port,cname);
 		//document.write("connecting to "+ host);
 		var options = {
-			timeout: 3,
-			onSuccess: onConnect,
-			onFailure: onFailure,
-            userName: user, 
-            password: pass
-        };
+			var options = {
+    		timeout: 3,
+    		useSSL: true,
+    		userName: user,
+    		password: pass,
+    		onSuccess: onConnect,
+    		onFailure: onFailure
+		};
         // client.username_pw_set(user, pass)
         
         // mqtt.onMessageArrived = onMessageArrived
@@ -194,7 +196,7 @@
 
         client.connect(options); //connect
         //const client = new Paho.MQTT.Client(broker, "clientId");
-
+		<title>Omni KP Infratech Weather Dashboard</title>
         //client.connect({ onSuccess: onConnect, onFailure: onFailure });
     </script>
 </body>
