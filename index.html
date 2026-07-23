@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<title>Omni KP Infratech Weather Dashboard</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IoT Weather Station Monitor</title>
@@ -167,24 +168,29 @@
         });
 
         var reconnectTimeout = 2000;
-		var host="broker.emqx.io";
-        var user="emqx";
-        var pass="public";
-		var port = 8084;
-		var useSSL = true;
-		
-        const cname = "WeatherDashboard-" + Date.now();
+		var host = "broker.emqx.io";
+var port = 8084;
+var user = "emqx";
+var pass = "public";
 
-		client = new Paho.MQTT.Client(host,port,cname);
-		//document.write("connecting to "+ host);
-		var options = {
-    		timeout: 3,
-    		useSSL: true,
-    		userName: user,
-    		password: pass,
-    		onSuccess: onConnect,
-    		onFailure: onFailure
-		};
+const cname = "WeatherDashboard-" + Date.now();
+
+const client = new Paho.MQTT.Client(host, port, cname);
+
+client.onConnectionLost = onConnectionLost;
+client.onMessageArrived = onMessageArrived;
+
+const options = {
+    timeout: 5,
+    useSSL: true,
+    userName: user,
+    password: pass,
+    onSuccess: onConnect,
+    onFailure: onFailure
+};
+
+client.connect(options);
+		
         // client.username_pw_set(user, pass)
         
         // mqtt.onMessageArrived = onMessageArrived
@@ -195,7 +201,7 @@
 
         client.connect(options); //connect
         //const client = new Paho.MQTT.Client(broker, "clientId");
-		<title>Omni KP Infratech Weather Dashboard</title>
+		
         //client.connect({ onSuccess: onConnect, onFailure: onFailure });
     </script>
 </body>
